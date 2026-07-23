@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "AI Agents for Odoo Community",
-    "summary": "Bring AI to any Odoo screen — no Enterprise, no coding, free providers supported",
+    "summary": "Bring AI to any Odoo screen - no Enterprise, no coding, free providers supported",
     "description": """
 AI Agents for Odoo Community
 ============================
@@ -9,7 +9,7 @@ AI Agents for Odoo Community
 Odoo 19 keeps its AI features for Enterprise. This app brings them to Community.
 
 Create an AI agent in a few clicks and run it from the **Actions** menu of *any*
-screen in Odoo — Sales, CRM, Products, HR, Helpdesk, your own custom models.
+screen in Odoo - Sales, CRM, Products, HR, Helpdesk, your own custom models.
 
 * **Works for free.** Groq, Google Gemini and OpenRouter all have free API keys.
   Ollama runs on your own machine with no key and no internet at all.

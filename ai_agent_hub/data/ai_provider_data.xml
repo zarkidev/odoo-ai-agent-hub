@@ -8,7 +8,7 @@
     <data noupdate="1">
 
         <record id="provider_groq" model="ai.provider">
-            <field name="name">Groq — free API key</field>
+            <field name="name">Groq - free API key</field>
             <field name="sequence">1</field>
             <field name="api_type">openai</field>
             <field name="base_url">https://api.groq.com/openai/v1</field>
@@ -19,7 +19,7 @@
         </record>
 
         <record id="provider_gemini" model="ai.provider">
-            <field name="name">Google Gemini — free tier</field>
+            <field name="name">Google Gemini - free tier</field>
             <field name="sequence">2</field>
             <field name="api_type">openai</field>
             <field name="base_url">https://generativelanguage.googleapis.com/v1beta/openai</field>
@@ -30,7 +30,7 @@
         </record>
 
         <record id="provider_openrouter" model="ai.provider">
-            <field name="name">OpenRouter — free models available</field>
+            <field name="name">OpenRouter - free models available</field>
             <field name="sequence">3</field>
             <field name="api_type">openai</field>
             <field name="base_url">https://openrouter.ai/api/v1</field>
@@ -41,7 +41,7 @@
         </record>
 
         <record id="provider_ollama" model="ai.provider">
-            <field name="name">Ollama — runs on your own computer, no key</field>
+            <field name="name">Ollama - runs on your own computer, no key</field>
             <field name="sequence">4</field>
             <field name="api_type">ollama</field>
             <field name="base_url">http://localhost:11434</field>
