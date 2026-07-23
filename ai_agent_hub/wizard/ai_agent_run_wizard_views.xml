@@ -28,11 +28,11 @@
                 <!-- Several records: one row each, with a tick box to keep or skip. -->
                 <div invisible="line_count &lt;= 1">
                     <field name="line_ids" nolabel="1">
-                        <list editable="bottom" create="false" delete="false">
+                        <tree editable="bottom" create="false" delete="false">
                             <field name="selected" string="Keep" widget="boolean_toggle"/>
                             <field name="record_name" readonly="1"/>
                             <field name="result" widget="text"/>
-                        </list>
+                        </tree>
                     </field>
                 </div>
 

@@ -5,7 +5,7 @@
         <field name="name">ai.request.log.list</field>
         <field name="model">ai.request.log</field>
         <field name="arch" type="xml">
-            <list string="AI History" create="false" decoration-danger="state == 'error'">
+            <tree string="AI History" create="false" decoration-danger="state == 'error'">
                 <field name="create_date" string="When"/>
                 <field name="agent_id"/>
                 <field name="record_name" string="Record"/>
@@ -15,7 +15,7 @@
                 <field name="state" widget="badge"
                        decoration-success="state == 'done'"
                        decoration-danger="state == 'error'"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -84,7 +84,7 @@
     <record id="action_ai_request_log" model="ir.actions.act_window">
         <field name="name">History</field>
         <field name="res_model">ai.request.log</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_ai_request_log_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Nothing here yet</p>
