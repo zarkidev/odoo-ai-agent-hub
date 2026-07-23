@@ -95,9 +95,10 @@ class AIProvider(models.Model):
     )
     state_message = fields.Text(string="Last Test Result", readonly=True)
 
-    _sql_constraints = [
-        ("name_uniq", "unique(name)", "An AI provider with this name already exists."),
-    ]
+    _name_uniq = models.Constraint(
+        "unique (name)",
+        "An AI provider with this name already exists.",
+    )
 
     # ------------------------------------------------------------------
     # Configuration helpers
