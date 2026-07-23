@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "AI Agents for Odoo Community",
+    "name": "AI Agents for Odoo (Community & Enterprise)",
     "summary": "Bring AI to any Odoo screen - free providers, no coding. Works on Community, Enterprise and Odoo.sh",
     "description": """
-AI Agents for Odoo Community
-============================
+AI Agents for Odoo
+==================
 
 Give any Odoo record an AI agent - on Community, Enterprise or Odoo.sh, with the
 AI provider of your choice. On Community it brings the AI features Odoo 19 keeps
