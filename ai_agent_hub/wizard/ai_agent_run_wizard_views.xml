@@ -18,27 +18,23 @@
                     until you press <b>Save to Record</b>.
                 </div>
 
-                <!-- Single record: show the text straight away, no list to click through. -->
-                <group invisible="line_count != 1">
-                    <field name="line_ids" nolabel="1" colspan="2">
-                        <list editable="bottom" create="false" delete="false">
-                            <field name="record_name" readonly="1" optional="hide"/>
-                            <field name="result" widget="text"/>
-                            <field name="selected" invisible="1"/>
-                        </list>
-                    </field>
-                </group>
+                <!-- One record: a plain text box, nothing else to understand. -->
+                <div invisible="line_count != 1">
+                    <field name="single_result" nolabel="1" widget="text"
+                           placeholder="The AI answer appears here."
+                           style="min-height:150px;"/>
+                </div>
 
                 <!-- Several records: one row each, with a tick box to keep or skip. -->
-                <group invisible="line_count &lt;= 1">
-                    <field name="line_ids" nolabel="1" colspan="2">
+                <div invisible="line_count &lt;= 1">
+                    <field name="line_ids" nolabel="1">
                         <list editable="bottom" create="false" delete="false">
                             <field name="selected" string="Keep" widget="boolean_toggle"/>
                             <field name="record_name" readonly="1"/>
                             <field name="result" widget="text"/>
                         </list>
                     </field>
-                </group>
+                </div>
 
                 <footer>
                     <button name="action_apply" type="object" string="Save to Record"

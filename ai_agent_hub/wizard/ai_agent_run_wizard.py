@@ -22,8 +22,14 @@ class AIAgentRunWizard(models.TransientModel):
 
     line_ids = fields.One2many("ai.agent.run.wizard.line", "wizard_id", string="Results")
     line_count = fields.Integer(compute="_compute_line_count")
-    single_line_id = fields.Many2one(
-        "ai.agent.run.wizard.line", compute="_compute_line_count", string="Result",
+
+    # For the common case of one record, show a plain editable text box instead
+    # of a one-row list — far less cluttered than a grid with a "Keep" column.
+    single_result = fields.Text(
+        string="AI Answer",
+        compute="_compute_single_result",
+        inverse="_inverse_single_result",
+        help="You can edit this text before saving it.",
     )
 
     target_field_label = fields.Char(compute="_compute_target_field_label")
@@ -33,7 +39,17 @@ class AIAgentRunWizard(models.TransientModel):
     def _compute_line_count(self):
         for wizard in self:
             wizard.line_count = len(wizard.line_ids)
-            wizard.single_line_id = wizard.line_ids[:1]
+
+    @api.depends("line_ids.result")
+    def _compute_single_result(self):
+        for wizard in self:
+            wizard.single_result = wizard.line_ids[:1].result or ""
+
+    def _inverse_single_result(self):
+        for wizard in self:
+            line = wizard.line_ids[:1]
+            if line:
+                line.result = wizard.single_result
 
     @api.depends("agent_id")
     def _compute_target_field_label(self):
@@ -83,7 +99,9 @@ class AIAgentRunWizard(models.TransientModel):
         """Save the ticked results onto their records."""
         self.ensure_one()
         agent = self.agent_id
-        selected = self.line_ids.filtered("selected")
+        # With a single record there is no "Keep" column to untick, so the one
+        # result is always the one being saved.
+        selected = self.line_ids if len(self.line_ids) == 1 else self.line_ids.filtered("selected")
         if not selected:
             raise UserError(_("Tick at least one result to keep, or press Discard."))
         model = self.env[self.res_model]

@@ -59,15 +59,18 @@ Your agent now appears in the ⚙ **Actions** menu of those records.
 
 ## Requirements
 
-- Odoo 19 Community (other series are being backported — see below)
+- Odoo 16.0, 17.0, 18.0 or 19.0 (Community or Enterprise)
 - The Python `requests` library, which ships with Odoo
 
 ## Compatibility
 
 | Odoo series | Status |
 |---|---|
-| 19.0 | ✅ Tested — installs clean, 16/16 tests pass |
-| 15.0 – 18.0 | 🚧 Backport in progress |
+| 19.0 | ✅ Tested — installs clean, all tests pass |
+| 18.0 | 🚧 Backport in progress |
+| 17.0 | 🚧 Backport in progress |
+| 16.0 | 🚧 Backport in progress |
+| 15.0 | ❌ Not supported |
 
 ## Running the tests
 

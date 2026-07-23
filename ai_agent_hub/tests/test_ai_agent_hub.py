@@ -138,13 +138,45 @@ class TestAIAgentHub(TransactionCase):
         wizard.action_apply()
         self.assertIn("Edited by the user.", self.partner.comment)
 
-    def test_review_apply_requires_a_selection(self):
+    def test_single_record_uses_plain_text_box(self):
+        """One record => edit via single_result, no list and no Keep column."""
         self.agent.output_mode = "review"
         with patch.object(
             type(self.provider), "chat", return_value=(FAKE_REPLY, 0.1),
         ):
             action = self.agent.run_on_records(self.partner)
         wizard = self.env["ai.agent.run.wizard"].browse(action["res_id"])
+        self.assertEqual(wizard.line_count, 1)
+        self.assertEqual(wizard.single_result, FAKE_REPLY)
+
+        # Editing the text box must write through to the underlying line.
+        wizard.single_result = "Typed straight into the box."
+        self.assertEqual(wizard.line_ids.result, "Typed straight into the box.")
+        wizard.action_apply()
+        self.assertIn("Typed straight into the box.", self.partner.comment)
+
+    def test_single_record_applies_even_if_not_ticked(self):
+        """There is no Keep toggle for one record, so it must still save."""
+        self.agent.output_mode = "review"
+        with patch.object(
+            type(self.provider), "chat", return_value=(FAKE_REPLY, 0.1),
+        ):
+            action = self.agent.run_on_records(self.partner)
+        wizard = self.env["ai.agent.run.wizard"].browse(action["res_id"])
+        wizard.line_ids.selected = False
+        wizard.action_apply()
+        self.assertIn(FAKE_REPLY, self.partner.comment)
+
+    def test_review_apply_requires_a_selection_when_several(self):
+        """With more than one record the Keep column applies, so unticking all fails."""
+        self.agent.output_mode = "review"
+        others = self.partner | self.env["res.partner"].create({"name": "Second Co"})
+        with patch.object(
+            type(self.provider), "chat", return_value=(FAKE_REPLY, 0.1),
+        ):
+            action = self.agent.run_on_records(others)
+        wizard = self.env["ai.agent.run.wizard"].browse(action["res_id"])
+        self.assertEqual(wizard.line_count, 2)
         wizard.line_ids.selected = False
         with self.assertRaises(UserError):
             wizard.action_apply()
