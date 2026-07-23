@@ -23,7 +23,7 @@ screen in Odoo — Sales, CRM, Products, HR, Helpdesk, your own custom models.
     "website": "https://github.com/zarkidev/odoo-ai-agent-hub",
     "license": "LGPL-3",
     "category": "Productivity",
-    "version": "17.0.1.0.0",
+    "version": "16.0.1.0.0",
     "depends": ["base", "mail"],
     "external_dependencies": {"python": ["requests"]},
     "data": [

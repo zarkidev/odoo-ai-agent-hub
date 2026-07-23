@@ -7,23 +7,32 @@
         <field name="priority" eval="90"/>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-                <app data-string="AI" string="AI" name="ai_agent_hub" logo="/ai_agent_hub/static/description/icon.png">
-                    <block title="AI Provider" name="ai_provider_setting">
-                        <setting string="Default provider"
-                                 help="Used by new agents. Each agent can still pick a different one.">
-                            <field name="ai_default_provider_id" options="{'no_create': True}"/>
-                            <field name="ai_provider_state" invisible="1"/>
-                            <div class="text-warning mt-2" invisible="ai_provider_state == 'ready' or not ai_default_provider_id">
-                                This provider has not been tested yet.
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="AI" string="AI" data-key="ai_agent_hub">
+                    <h2>AI Provider</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="ai_default_provider_id" string="Default provider"/>
+                                <div class="text-muted">
+                                    Used by new agents. Each agent can still pick a different one.
+                                </div>
+                                <div class="content-group mt16">
+                                    <field name="ai_default_provider_id" options="{'no_create': True}"/>
+                                    <field name="ai_provider_state" invisible="1"/>
+                                </div>
+                                <div class="text-warning mt8"
+                                     attrs="{'invisible': ['|', ('ai_provider_state', '=', 'ready'), ('ai_default_provider_id', '=', False)]}">
+                                    This provider has not been tested yet.
+                                </div>
+                                <div class="mt8">
+                                    <button name="action_open_ai_providers" type="object"
+                                            string="Set up providers" class="btn-link" icon="fa-arrow-right"/>
+                                </div>
                             </div>
-                            <div class="mt8">
-                                <button name="action_open_ai_providers" type="object"
-                                        string="Set up providers" class="btn-link" icon="fa-arrow-right"/>
-                            </div>
-                        </setting>
-                    </block>
-                </app>
+                        </div>
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>

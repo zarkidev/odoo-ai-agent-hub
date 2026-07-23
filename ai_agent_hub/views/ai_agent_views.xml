@@ -27,8 +27,8 @@
                             <field name="log_count" widget="statinfo" string="Runs"/>
                         </button>
                     </div>
-                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
-                            invisible="active"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
                     <div class="oe_title">
                         <label for="name" string="Agent"/>
                         <h1><field name="name" placeholder="e.g. Write a product description"/></h1>
@@ -66,8 +66,7 @@
                         <field name="output_mode" widget="radio" nolabel="1" colspan="2"/>
                         <field name="target_field_id"
                                string="Save into"
-                               invisible="output_mode != 'field'"
-                               required="output_mode == 'field'"
+                               attrs="{'invisible': [('output_mode', '!=', 'field')], 'required': [('output_mode', '=', 'field')]}"
                                options="{'no_create': True, 'no_open': True}"
                                domain="[('model_id', '=', model_id), ('ttype', 'in', ['char', 'text', 'html']), ('store', '=', True)]"/>
                     </group>

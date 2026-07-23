@@ -29,29 +29,29 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,ready"/>
                 </header>
                 <sheet>
-                    <widget name="web_ribbon" title="Free" bg_color="text-bg-success"
-                            invisible="not is_free"/>
+                    <widget name="web_ribbon" title="Free" bg_color="bg-success"
+                            attrs="{'invisible': [('is_free', '=', False)]}"/>
                     <div class="oe_title">
                         <label for="name" string="Provider"/>
                         <h1><field name="name" placeholder="e.g. Groq"/></h1>
                     </div>
 
-                    <div class="alert alert-info" role="alert" invisible="not needs_key or api_key">
+                    <div class="alert alert-info" role="alert" attrs="{'invisible': ['|', ('needs_key', '=', False), ('api_key', '!=', False)]}">
                         This provider needs an API key before it can be used.
-                        <a href="#" invisible="not signup_url">
+                        <a href="#" attrs="{'invisible': [('signup_url', '=', False)]}">
                             <field name="signup_url" widget="url" text="Get your key here →" nolabel="1"/>
                         </a>
                     </div>
-                    <div class="alert alert-danger" role="alert" invisible="state != 'error'">
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible': [('state', '!=', 'error')]}">
                         <field name="state_message" nolabel="1" readonly="1"/>
                     </div>
-                    <div class="alert alert-success" role="alert" invisible="state != 'ready'">
+                    <div class="alert alert-success" role="alert" attrs="{'invisible': [('state', '!=', 'ready')]}">
                         <field name="state_message" nolabel="1" readonly="1"/>
                     </div>
 
                     <group>
                         <group string="Connection">
-                            <field name="api_key" password="True" required="needs_key"
+                            <field name="api_key" password="True" attrs="{'required': [('needs_key', '=', True)]}"
                                    placeholder="Paste your key here"/>
                             <field name="model"/>
                             <field name="needs_key" invisible="1"/>

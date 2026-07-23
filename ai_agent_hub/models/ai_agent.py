@@ -108,10 +108,15 @@ class AIAgent(models.Model):
     # Computes / onchanges
     # ------------------------------------------------------------------
     def _compute_log_count(self):
+        # Odoo 16 signature: _read_group(domain, fields, groupby) -> list of dicts.
+        # (17.0 changed this to (domain, groupby, aggregates) returning tuples.)
         data = self.env["ai.request.log"]._read_group(
-            [("agent_id", "in", self.ids)], ["agent_id"], ["__count"],
+            [("agent_id", "in", self.ids)], ["agent_id"], ["agent_id"],
         )
-        counts = {agent.id: count for agent, count in data}
+        counts = {
+            row["agent_id"][0]: row["agent_id_count"]
+            for row in data if row.get("agent_id")
+        }
         for agent in self:
             agent.log_count = counts.get(agent.id, 0)
 
