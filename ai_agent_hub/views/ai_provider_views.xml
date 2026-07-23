@@ -39,7 +39,7 @@
                     <div class="alert alert-info" role="alert" invisible="not needs_key or api_key">
                         This provider needs an API key before it can be used.
                         <a href="#" invisible="not signup_url">
-                            <field name="signup_url" widget="url" text="Get your key here →" nolabel="1"/>
+                            <field name="signup_url" widget="url" text="Get your key here ->" nolabel="1"/>
                         </a>
                     </div>
                     <div class="alert alert-danger" role="alert" invisible="state != 'error'">

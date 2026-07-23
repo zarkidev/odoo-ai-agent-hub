@@ -46,7 +46,7 @@ class AIProvider(models.Model):
     base_url = fields.Char(
         string="API Address",
         required=True,
-        help="The provider endpoint. Already filled in for you — only change it "
+        help="The provider endpoint. Already filled in for you - only change it "
              "if the provider tells you to.",
     )
     model = fields.Char(
@@ -118,8 +118,8 @@ class AIProvider(models.Model):
         self.ensure_one()
         if self.needs_key and not self.api_key:
             raise UserError(_(
-                "The AI provider “%(name)s” still needs an API key.\n\n"
-                "Open AI → Configuration → Providers, select “%(name)s” and paste your key.\n"
+                "The AI provider '%(name)s' still needs an API key.\n\n"
+                "Open AI -> Configuration -> Providers, select '%(name)s' and paste your key.\n"
                 "%(hint)s",
                 name=self.name,
                 hint=_("You can create a free key at %s", self.signup_url) if self.signup_url else "",
@@ -142,19 +142,19 @@ class AIProvider(models.Model):
                 reply = self._call_openai(system_prompt, user_prompt)
         except requests.exceptions.Timeout:
             raise UserError(_(
-                "“%s” took too long to answer. Please try again, or pick a smaller model.",
+                "'%s' took too long to answer. Please try again, or pick a smaller model.",
                 self.name,
             ))
         except requests.exceptions.RequestException as err:
             _logger.warning("AI provider %s unreachable: %s", self.name, err)
             raise UserError(_(
-                "Could not reach “%(name)s”.\n\n%(error)s",
+                "Could not reach '%(name)s'.\n\n%(error)s",
                 name=self.name, error=err,
             ))
         except (KeyError, IndexError, ValueError) as err:
             _logger.warning("Unexpected response from %s: %s", self.name, err)
             raise UserError(_(
-                "“%s” sent back something unexpected. Please try again.", self.name,
+                "'%s' sent back something unexpected. Please try again.", self.name,
             ))
         return reply, time.time() - started
 
@@ -236,28 +236,28 @@ class AIProvider(models.Model):
         # Turn the most common failures into advice instead of a raw error code.
         if response.status_code in (401, 403):
             raise UserError(_(
-                "“%(name)s” rejected your API key.\n\n"
+                "'%(name)s' rejected your API key.\n\n"
                 "Check that the key is correct and still active, then test again.\n\n"
                 "Details: %(detail)s",
                 name=self.name, detail=detail,
             ))
         if response.status_code == 404:
             raise UserError(_(
-                "“%(model)s” was not found on %(name)s.\n\n"
+                "'%(model)s' was not found on %(name)s.\n\n"
                 "The model name may be wrong or no longer available. "
-                "Open AI → Configuration → Providers to change it.\n\n"
+                "Open AI -> Configuration -> Providers to change it.\n\n"
                 "Details: %(detail)s",
                 model=self.model, name=self.name, detail=detail,
             ))
         if response.status_code == 429:
             raise UserError(_(
-                "“%(name)s” is rate limiting you — too many requests, or the free "
+                "'%(name)s' is rate limiting you - too many requests, or the free "
                 "quota is used up. Wait a moment and try again.\n\n"
                 "Details: %(detail)s",
                 name=self.name, detail=detail,
             ))
         raise UserError(_(
-            "“%(name)s” returned an error (%(code)s).\n\n%(detail)s",
+            "'%(name)s' returned an error (%(code)s).\n\n%(detail)s",
             name=self.name, code=response.status_code, detail=detail,
         ))
 

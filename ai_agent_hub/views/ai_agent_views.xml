@@ -107,7 +107,7 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create your first AI agent</p>
             <p>
-                An agent is a task you want the AI to do — summarise a lead, write a
+                An agent is a task you want the AI to do - summarise a lead, write a
                 product description, draft a reply. Choose where it runs, describe the
                 task in plain English, and it appears in the <b>Actions</b> menu of
                 those records.
