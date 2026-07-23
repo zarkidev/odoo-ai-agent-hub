@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 {
     "name": "AI Agents for Odoo Community",
-    "summary": "Bring AI to any Odoo screen - no Enterprise, no coding, free providers supported",
+    "summary": "Bring AI to any Odoo screen - free providers, no coding. Works on Community, Enterprise and Odoo.sh",
     "description": """
 AI Agents for Odoo Community
 ============================
 
-Odoo 19 keeps its AI features for Enterprise. This app brings them to Community.
+Give any Odoo record an AI agent - on Community, Enterprise or Odoo.sh, with the
+AI provider of your choice. On Community it brings the AI features Odoo 19 keeps
+for Enterprise; on Enterprise and Odoo.sh it adds free provider choice with no
+per-feature lock-in.
 
 Create an AI agent in a few clicks and run it from the **Actions** menu of *any*
 screen in Odoo - Sales, CRM, Products, HR, Helpdesk, your own custom models.
