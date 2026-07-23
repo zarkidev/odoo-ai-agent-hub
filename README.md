@@ -66,11 +66,13 @@ Your agent now appears in the ⚙ **Actions** menu of those records.
 
 | Odoo series | Status |
 |---|---|
-| 19.0 | ✅ Tested — installs clean, all tests pass |
-| 18.0 | 🚧 Backport in progress |
-| 17.0 | 🚧 Backport in progress |
-| 16.0 | 🚧 Backport in progress |
+| 19.0 | ✅ Installs clean · 19/19 tests pass |
+| 18.0 | ✅ Installs clean · 19/19 tests pass |
+| 17.0 | ✅ Installs clean · 19/19 tests pass |
+| 16.0 | ✅ Installs clean · 19/19 tests pass |
 | 15.0 | ❌ Not supported |
+
+Each series lives on its own branch (`16.0`, `17.0`, `18.0`, `19.0`), OCA-style.
 
 ## Running the tests
 
