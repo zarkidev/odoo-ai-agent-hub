@@ -196,6 +196,17 @@ class TestAIAgentHub(TransactionCase):
                 self.env["ir.model.fields"]._get("res.company", "name").id,
             ])]
 
+    def test_log_count_is_computed(self):
+        """The Runs counter on the agent must survive the _read_group API change."""
+        self.assertEqual(self.agent.log_count, 0)
+        with patch.object(
+            type(self.provider), "chat", return_value=(FAKE_REPLY, 0.1),
+        ):
+            self.agent.run_on_records(self.partner)
+            self.agent.run_on_records(self.partner)
+        self.agent.invalidate_recordset(["log_count"])
+        self.assertEqual(self.agent.log_count, 2)
+
     def test_agent_appears_in_actions_menu(self):
         self.assertTrue(self.agent.server_action_id)
         self.assertEqual(
