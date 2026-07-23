@@ -8,29 +8,22 @@
             <field name="sequence">25</field>
         </record>
 
-        <!-- Odoo 19 groups their access levels under a "privilege". -->
-        <record id="res_groups_privilege_ai" model="res.groups.privilege">
-            <field name="name">AI Agents</field>
-            <field name="category_id" ref="module_category_ai"/>
-            <field name="sequence">25</field>
-        </record>
-
         <record id="group_ai_user" model="res.groups">
             <field name="name">User</field>
-            <field name="privilege_id" ref="res_groups_privilege_ai"/>
+            <field name="category_id" ref="module_category_ai"/>
             <field name="comment">Can run AI agents on records and see the history.</field>
         </record>
 
         <record id="group_ai_manager" model="res.groups">
             <field name="name">Administrator</field>
-            <field name="privilege_id" ref="res_groups_privilege_ai"/>
+            <field name="category_id" ref="module_category_ai"/>
             <field name="implied_ids" eval="[(4, ref('group_ai_user'))]"/>
             <field name="comment">Can set up providers and API keys, and create agents.</field>
         </record>
 
         <!-- Existing system administrators get AI administration automatically. -->
         <record id="base.user_admin" model="res.users">
-            <field name="group_ids" eval="[(4, ref('group_ai_manager'))]"/>
+            <field name="groups_id" eval="[(4, ref('group_ai_manager'))]"/>
         </record>
 
         <!-- Everyone who uses Odoo can run agents; only admins configure them. -->
