@@ -3,7 +3,7 @@
 **Odoo 19 keeps its AI features for Enterprise. This app brings them to Community.**
 
 Create an AI agent in a few clicks and run it from the **Actions** menu of *any* screen in
-Odoo — Sales, CRM, Products, HR, Helpdesk, or your own custom models. No coding, no developer
+Odoo - Sales, CRM, Products, HR, Helpdesk, or your own custom models. No coding, no developer
 mode, and it works with free AI providers.
 
 ![AI Agents for Odoo Community](ai_agent_hub/static/description/banner.png)
@@ -12,7 +12,7 @@ mode, and it works with free AI providers.
 
 ## Why this exists
 
-Odoo 19 added AI across the whole system — but only for Enterprise. Community users, who make
+Odoo 19 added AI across the whole system - but only for Enterprise. Community users, who make
 up the larger part of the install base, got nothing. This module fills that gap using AI
 providers you choose yourself, including several that are completely free.
 
@@ -29,10 +29,10 @@ Anything you can describe in a sentence, on any model in your database.
 
 ## Setup in three minutes
 
-1. **Install the module.** Go to **AI → Configuration → Providers**.
-2. **Pick a provider.** Groq, Google Gemini, OpenRouter and Ollama are already configured —
+1. **Install the module.** Go to **AI -> Configuration -> Providers**.
+2. **Pick a provider.** Groq, Google Gemini, OpenRouter and Ollama are already configured -
    paste your API key and press **Test Connection**.
-3. **Create an agent** under **AI → Agents**: choose where it runs, describe the task in plain
+3. **Create an agent** under **AI -> Agents**: choose where it runs, describe the task in plain
    English, tick the fields the AI may see, and choose what happens to the answer.
 
 Your agent now appears in the ⚙ **Actions** menu of those records.
@@ -44,7 +44,7 @@ Your agent now appears in the ⚙ **Actions** menu of those records.
 | **Groq** | Free key | <https://console.groq.com/keys> |
 | **Google Gemini** | Free tier | <https://aistudio.google.com/apikey> |
 | **OpenRouter** | Free models available | <https://openrouter.ai/keys> |
-| **Ollama** | Free, runs locally | <https://ollama.com/download> — no key needed |
+| **Ollama** | Free, runs locally | <https://ollama.com/download> - no key needed |
 | OpenAI | Paid | <https://platform.openai.com/api-keys> |
 | Anthropic (Claude) | Paid | <https://console.anthropic.com/settings/keys> |
 
@@ -54,7 +54,7 @@ Your agent now appears in the ⚙ **Actions** menu of those records.
   so you can edit it before anything is saved.
 - **Only the fields you tick are sent.** Nothing else leaves your database.
 - **API keys are administrator-only.** Staff can run agents without ever seeing your keys.
-- **Everything is logged** — what was sent, what came back, and how long it took.
+- **Everything is logged** - what was sent, what came back, and how long it took.
 - **Works fully offline.** Point it at Ollama and no data leaves your machine.
 
 ## Requirements
@@ -66,7 +66,7 @@ Your agent now appears in the ⚙ **Actions** menu of those records.
 
 | Odoo series | Status |
 |---|---|
-| 19.0 | ✅ Tested — installs clean, all tests pass |
+| 19.0 | ✅ Tested - installs clean, all tests pass |
 | 18.0 | 🚧 Backport in progress |
 | 17.0 | 🚧 Backport in progress |
 | 16.0 | 🚧 Backport in progress |
@@ -87,4 +87,4 @@ LGPL-3. See [LICENSE](LICENSE).
 
 ---
 
-Built by **Zarki** — <https://github.com/zarkidev>
+Built by **Zarki** - <https://github.com/zarkidev>

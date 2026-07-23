@@ -31,7 +31,7 @@ class AIAgent(models.Model):
         string="Agent Name",
         required=True,
         translate=True,
-        help="How this agent appears in the Actions menu, e.g. “Summarise this lead”.",
+        help="How this agent appears in the Actions menu, e.g. 'Summarise this lead'.",
     )
     sequence = fields.Integer(default=10)
     active = fields.Boolean(default=True)
@@ -61,8 +61,8 @@ class AIAgent(models.Model):
         required=True,
         translate=True,
         help="Describe the task in plain English, as if briefing a colleague. "
-             "Example: “Write a short, friendly product description highlighting "
-             "the main benefits. Use two sentences.”",
+             "Example: 'Write a short, friendly product description highlighting "
+             "the main benefits. Use two sentences.'",
     )
 
     field_ids = fields.Many2many(
@@ -83,7 +83,7 @@ class AIAgent(models.Model):
         string="What to do with the answer",
         required=True,
         default="review",
-        help="“Show me the result first” is the safest: nothing is saved until you approve it.",
+        help="'Show me the result first' is the safest: nothing is saved until you approve it.",
     )
     target_field_id = fields.Many2one(
         "ir.model.fields",
@@ -137,12 +137,12 @@ class AIAgent(models.Model):
             if agent.output_mode == "field" and not agent.target_field_id:
                 raise UserError(_(
                     "Choose which field the answer should be saved into, "
-                    "or switch to “Show me the result first”."
+                    "or switch to 'Show me the result first'."
                 ))
             target = agent.target_field_id
             if target and target.ttype not in WRITABLE_TYPES:
                 raise UserError(_(
-                    "The answer is text, so it cannot be saved into “%s”. "
+                    "The answer is text, so it cannot be saved into '%s'. "
                     "Pick a text, description or HTML field instead.",
                     target.field_description,
                 ))
@@ -156,7 +156,7 @@ class AIAgent(models.Model):
             if wrong:
                 raise UserError(_(
                     "Some selected fields do not belong to %s. "
-                    "Please re-pick them after changing “Use On”.",
+                    "Please re-pick them after changing 'Use On'.",
                     agent.model_id.name,
                 ))
 
@@ -291,7 +291,7 @@ class AIAgent(models.Model):
             raise UserError(_("Select at least one record first."))
         if records._name != self.model_name:
             raise UserError(_(
-                "“%(agent)s” works on %(expected)s records, not on this kind of record.",
+                "'%(agent)s' works on %(expected)s records, not on this kind of record.",
                 agent=self.name, expected=self.model_id.name,
             ))
 

@@ -88,7 +88,7 @@
         <field name="search_view_id" ref="view_ai_request_log_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Nothing here yet</p>
-            <p>Every time an AI agent runs, it is recorded here — what was sent,
+            <p>Every time an AI agent runs, it is recorded here - what was sent,
                what came back, and how long it took.</p>
         </field>
     </record>

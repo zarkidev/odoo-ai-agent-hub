@@ -24,7 +24,7 @@ class AIAgentRunWizard(models.TransientModel):
     line_count = fields.Integer(compute="_compute_line_count")
 
     # For the common case of one record, show a plain editable text box instead
-    # of a one-row list — far less cluttered than a grid with a "Keep" column.
+    # of a one-row list - far less cluttered than a grid with a "Keep" column.
     single_result = fields.Text(
         string="AI Answer",
         compute="_compute_single_result",
@@ -73,7 +73,7 @@ class AIAgentRunWizard(models.TransientModel):
         records = self._records()
         if len(records) > MAX_REVIEW_RECORDS:
             raise UserError(_(
-                "You selected %(count)s records. Please run “%(agent)s” on at most "
+                "You selected %(count)s records. Please run '%(agent)s' on at most "
                 "%(max)s at a time so it stays responsive.",
                 count=len(records), agent=self.agent_id.name, max=MAX_REVIEW_RECORDS,
             ))
@@ -90,7 +90,7 @@ class AIAgentRunWizard(models.TransientModel):
         return True
 
     def action_regenerate(self):
-        """Ask the AI again — useful when the first answer missed the mark."""
+        """Ask the AI again - useful when the first answer missed the mark."""
         self.ensure_one()
         self.action_generate()
         return self._reopen()
