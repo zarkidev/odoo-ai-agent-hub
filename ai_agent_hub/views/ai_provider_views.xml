@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ai_provider_list" model="ir.ui.view">
+        <field name="name">ai.provider.list</field>
+        <field name="model">ai.provider</field>
+        <field name="arch" type="xml">
+            <list string="AI Providers" decoration-muted="state == 'draft'" decoration-danger="state == 'error'">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model"/>
+                <field name="is_free" string="Free" widget="boolean_toggle" readonly="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'ready'"
+                       decoration-danger="state == 'error'"
+                       decoration-warning="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_provider_form" model="ir.ui.view">
+        <field name="name">ai.provider.form</field>
+        <field name="model">ai.provider</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_connection" type="object" string="Test Connection"
+                            class="btn-primary" icon="fa-plug"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Free" bg_color="text-bg-success"
+                            invisible="not is_free"/>
+                    <div class="oe_title">
+                        <label for="name" string="Provider"/>
+                        <h1><field name="name" placeholder="e.g. Groq"/></h1>
+                    </div>
+
+                    <div class="alert alert-info" role="alert" invisible="not needs_key or api_key">
+                        This provider needs an API key before it can be used.
+                        <a href="#" invisible="not signup_url">
+                            <field name="signup_url" widget="url" text="Get your key here →" nolabel="1"/>
+                        </a>
+                    </div>
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error'">
+                        <field name="state_message" nolabel="1" readonly="1"/>
+                    </div>
+                    <div class="alert alert-success" role="alert" invisible="state != 'ready'">
+                        <field name="state_message" nolabel="1" readonly="1"/>
+                    </div>
+
+                    <group>
+                        <group string="Connection">
+                            <field name="api_key" password="True" required="needs_key"
+                                   placeholder="Paste your key here"/>
+                            <field name="model"/>
+                            <field name="needs_key" invisible="1"/>
+                            <field name="is_free" invisible="1"/>
+                        </group>
+                        <group string="Answer Style">
+                            <field name="temperature" widget="percentage"/>
+                            <field name="max_tokens"/>
+                        </group>
+                    </group>
+                    <group string="Advanced">
+                        <field name="api_type"/>
+                        <field name="base_url"/>
+                        <field name="signup_url" widget="url"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_provider" model="ir.actions.act_window">
+        <field name="name">AI Providers</field>
+        <field name="res_model">ai.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Set up your AI provider</p>
+            <p>
+                Pick one of the free providers, paste your API key and press
+                <b>Test Connection</b>. Groq, Google Gemini and OpenRouter all give
+                free keys, and Ollama runs on your own computer with no key at all.
+            </p>
+        </field>
+    </record>
+
+</odoo>

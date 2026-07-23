@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ai_request_log_list" model="ir.ui.view">
+        <field name="name">ai.request.log.list</field>
+        <field name="model">ai.request.log</field>
+        <field name="arch" type="xml">
+            <list string="AI History" create="false" decoration-danger="state == 'error'">
+                <field name="create_date" string="When"/>
+                <field name="agent_id"/>
+                <field name="record_name" string="Record"/>
+                <field name="provider_id" optional="show"/>
+                <field name="ai_model" optional="hide"/>
+                <field name="duration" string="Seconds" optional="show" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'error'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_request_log_form" model="ir.ui.view">
+        <field name="name">ai.request.log.form</field>
+        <field name="model">ai.request.log</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <header>
+                    <button name="action_open_record" type="object" string="Open Record"
+                            class="btn-secondary" icon="fa-external-link"
+                            invisible="not res_id"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="record_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="agent_id"/>
+                            <field name="provider_id"/>
+                            <field name="ai_model"/>
+                        </group>
+                        <group>
+                            <field name="create_date" string="When"/>
+                            <field name="duration" string="Took (seconds)"/>
+                            <field name="state"/>
+                            <field name="res_model" invisible="1"/>
+                            <field name="res_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error'">
+                        <field name="error_message" nolabel="1" readonly="1"/>
+                    </div>
+                    <notebook>
+                        <page string="AI Answer" name="response" invisible="state == 'error'">
+                            <field name="response" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Sent to the AI" name="prompt">
+                            <field name="prompt" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_request_log_search" model="ir.ui.view">
+        <field name="name">ai.request.log.search</field>
+        <field name="model">ai.request.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="record_name"/>
+                <field name="agent_id"/>
+                <separator/>
+                <filter name="filter_done" string="Successful" domain="[('state', '=', 'done')]"/>
+                <filter name="filter_error" string="Failed" domain="[('state', '=', 'error')]"/>
+                <group name="group_by">
+                    <filter name="group_agent" string="Agent" context="{'group_by': 'agent_id'}"/>
+                    <filter name="group_state" string="Result" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_request_log" model="ir.actions.act_window">
+        <field name="name">History</field>
+        <field name="res_model">ai.request.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_ai_request_log_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nothing here yet</p>
+            <p>Every time an AI agent runs, it is recorded here — what was sent,
+               what came back, and how long it took.</p>
+        </field>
+    </record>
+
+</odoo>

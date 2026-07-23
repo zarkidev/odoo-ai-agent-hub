@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.ai.agent.hub</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="AI" string="AI" name="ai_agent_hub" logo="/ai_agent_hub/static/description/icon.png">
+                    <block title="AI Provider" name="ai_provider_setting">
+                        <setting string="Default provider"
+                                 help="Used by new agents. Each agent can still pick a different one.">
+                            <field name="ai_default_provider_id" options="{'no_create': True}"/>
+                            <field name="ai_provider_state" invisible="1"/>
+                            <div class="text-warning mt-2" invisible="ai_provider_state == 'ready' or not ai_default_provider_id">
+                                This provider has not been tested yet.
+                            </div>
+                            <div class="mt8">
+                                <button name="action_open_ai_providers" type="object"
+                                        string="Set up providers" class="btn-link" icon="fa-arrow-right"/>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Providers ship pre-configured. The user only has to paste an API key
+        into the one they want (and Ollama needs not even that).
+        noupdate="1" so their keys and tweaks survive a module upgrade.
+    -->
+    <data noupdate="1">
+
+        <record id="provider_groq" model="ai.provider">
+            <field name="name">Groq — free API key</field>
+            <field name="sequence">1</field>
+            <field name="api_type">openai</field>
+            <field name="base_url">https://api.groq.com/openai/v1</field>
+            <field name="model">llama-3.3-70b-versatile</field>
+            <field name="needs_key" eval="True"/>
+            <field name="is_free" eval="True"/>
+            <field name="signup_url">https://console.groq.com/keys</field>
+        </record>
+
+        <record id="provider_gemini" model="ai.provider">
+            <field name="name">Google Gemini — free tier</field>
+            <field name="sequence">2</field>
+            <field name="api_type">openai</field>
+            <field name="base_url">https://generativelanguage.googleapis.com/v1beta/openai</field>
+            <field name="model">gemini-2.0-flash</field>
+            <field name="needs_key" eval="True"/>
+            <field name="is_free" eval="True"/>
+            <field name="signup_url">https://aistudio.google.com/apikey</field>
+        </record>
+
+        <record id="provider_openrouter" model="ai.provider">
+            <field name="name">OpenRouter — free models available</field>
+            <field name="sequence">3</field>
+            <field name="api_type">openai</field>
+            <field name="base_url">https://openrouter.ai/api/v1</field>
+            <field name="model">meta-llama/llama-3.3-70b-instruct:free</field>
+            <field name="needs_key" eval="True"/>
+            <field name="is_free" eval="True"/>
+            <field name="signup_url">https://openrouter.ai/keys</field>
+        </record>
+
+        <record id="provider_ollama" model="ai.provider">
+            <field name="name">Ollama — runs on your own computer, no key</field>
+            <field name="sequence">4</field>
+            <field name="api_type">ollama</field>
+            <field name="base_url">http://localhost:11434</field>
+            <field name="model">llama3.1</field>
+            <field name="needs_key" eval="False"/>
+            <field name="is_free" eval="True"/>
+            <field name="signup_url">https://ollama.com/download</field>
+        </record>
+
+        <record id="provider_openai" model="ai.provider">
+            <field name="name">OpenAI</field>
+            <field name="sequence">10</field>
+            <field name="api_type">openai</field>
+            <field name="base_url">https://api.openai.com/v1</field>
+            <field name="model">gpt-4o-mini</field>
+            <field name="needs_key" eval="True"/>
+            <field name="signup_url">https://platform.openai.com/api-keys</field>
+        </record>
+
+        <record id="provider_anthropic" model="ai.provider">
+            <field name="name">Anthropic (Claude)</field>
+            <field name="sequence">11</field>
+            <field name="api_type">anthropic</field>
+            <field name="base_url">https://api.anthropic.com/v1</field>
+            <field name="model">claude-sonnet-5</field>
+            <field name="needs_key" eval="True"/>
+            <field name="signup_url">https://console.anthropic.com/settings/keys</field>
+        </record>
+
+        <!-- Start on the first free provider so the app is usable immediately. -->
+        <function model="ir.config_parameter" name="set_param">
+            <value>ai_agent_hub.default_provider_id</value>
+            <value eval="ref('provider_groq')"/>
+        </function>
+
+    </data>
+</odoo>

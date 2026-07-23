@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_ai_root"
+              name="AI"
+              web_icon="ai_agent_hub,static/description/icon.png"
+              sequence="95"
+              groups="ai_agent_hub.group_ai_user"/>
+
+    <menuitem id="menu_ai_agent"
+              name="Agents"
+              parent="menu_ai_root"
+              action="action_ai_agent"
+              sequence="10"/>
+
+    <menuitem id="menu_ai_history"
+              name="History"
+              parent="menu_ai_root"
+              action="action_ai_request_log"
+              sequence="20"/>
+
+    <menuitem id="menu_ai_configuration"
+              name="Configuration"
+              parent="menu_ai_root"
+              sequence="90"
+              groups="ai_agent_hub.group_ai_manager"/>
+
+    <menuitem id="menu_ai_provider"
+              name="Providers"
+              parent="menu_ai_configuration"
+              action="action_ai_provider"
+              sequence="10"/>
+
+</odoo>

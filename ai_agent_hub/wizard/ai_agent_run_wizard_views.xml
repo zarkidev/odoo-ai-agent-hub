@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ai_agent_run_wizard_form" model="ir.ui.view">
+        <field name="name">ai.agent.run.wizard.form</field>
+        <field name="model">ai.agent.run.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="agent_id" invisible="1"/>
+                <field name="res_model" invisible="1"/>
+                <field name="res_ids" invisible="1"/>
+                <field name="line_count" invisible="1"/>
+                <field name="output_mode" invisible="1"/>
+                <field name="target_field_label" invisible="1"/>
+
+                <div class="text-muted mb-3">
+                    Check the answer below and edit anything you want. Nothing is saved
+                    until you press <b>Save to Record</b>.
+                </div>
+
+                <!-- Single record: show the text straight away, no list to click through. -->
+                <group invisible="line_count != 1">
+                    <field name="line_ids" nolabel="1" colspan="2">
+                        <list editable="bottom" create="false" delete="false">
+                            <field name="record_name" readonly="1" optional="hide"/>
+                            <field name="result" widget="text"/>
+                            <field name="selected" invisible="1"/>
+                        </list>
+                    </field>
+                </group>
+
+                <!-- Several records: one row each, with a tick box to keep or skip. -->
+                <group invisible="line_count &lt;= 1">
+                    <field name="line_ids" nolabel="1" colspan="2">
+                        <list editable="bottom" create="false" delete="false">
+                            <field name="selected" string="Keep" widget="boolean_toggle"/>
+                            <field name="record_name" readonly="1"/>
+                            <field name="result" widget="text"/>
+                        </list>
+                    </field>
+                </group>
+
+                <footer>
+                    <button name="action_apply" type="object" string="Save to Record"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button name="action_regenerate" type="object" string="Try Again"
+                            class="btn-secondary" icon="fa-refresh" data-hotkey="r"/>
+                    <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

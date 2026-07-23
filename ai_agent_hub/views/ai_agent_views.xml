@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ai_agent_list" model="ir.ui.view">
+        <field name="name">ai.agent.list</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <list string="AI Agents">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id" string="Used On"/>
+                <field name="output_mode"/>
+                <field name="provider_id"/>
+                <field name="log_count" string="Runs"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_form" model="ir.ui.view">
+        <field name="name">ai.agent.form</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_logs" type="object" class="oe_stat_button" icon="fa-history">
+                            <field name="log_count" widget="statinfo" string="Runs"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name" string="Agent"/>
+                        <h1><field name="name" placeholder="e.g. Write a product description"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="1. Where does it run?">
+                            <field name="model_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="show_in_actions"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="AI Provider">
+                            <field name="provider_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <group string="2. What should it do?">
+                        <field name="instruction" nolabel="1" colspan="2"
+                               placeholder="Describe the task in plain English, for example:&#10;&#10;Write a short, friendly product description that highlights the main benefits. Use two sentences and no bullet points."/>
+                    </group>
+
+                    <group string="3. What information can the AI see?">
+                        <field name="field_ids" nolabel="1" colspan="2"
+                               widget="many2many_tags"
+                               options="{'no_create': True, 'no_open': True}"
+                               domain="[('model_id', '=', model_id), ('store', '=', True)]"
+                               placeholder="Tick the fields to send, e.g. Name, Category, Notes"/>
+                        <div colspan="2" class="text-muted">
+                            Only the fields you tick are sent to the AI. Nothing else leaves your database.
+                        </div>
+                    </group>
+
+                    <group string="4. What happens to the answer?">
+                        <field name="output_mode" widget="radio" nolabel="1" colspan="2"/>
+                        <field name="target_field_id"
+                               string="Save into"
+                               invisible="output_mode != 'field'"
+                               required="output_mode == 'field'"
+                               options="{'no_create': True, 'no_open': True}"
+                               domain="[('model_id', '=', model_id), ('ttype', 'in', ['char', 'text', 'html']), ('store', '=', True)]"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="Anything your team should know about this agent."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_search" model="ir.ui.view">
+        <field name="name">ai.agent.search</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model_id"/>
+                <separator/>
+                <filter name="filter_active" string="Archived" domain="[('active', '=', False)]"/>
+                <group name="group_by">
+                    <filter name="group_model" string="Used On" context="{'group_by': 'model_id'}"/>
+                    <filter name="group_provider" string="Provider" context="{'group_by': 'provider_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_agent" model="ir.actions.act_window">
+        <field name="name">AI Agents</field>
+        <field name="res_model">ai.agent</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_ai_agent_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first AI agent</p>
+            <p>
+                An agent is a task you want the AI to do — summarise a lead, write a
+                product description, draft a reply. Choose where it runs, describe the
+                task in plain English, and it appears in the <b>Actions</b> menu of
+                those records.
+            </p>
+        </field>
+    </record>
+
+</odoo>
